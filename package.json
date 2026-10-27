@@ -1,0 +1,19 @@
+{
+  "name": "mlm-dual-tree-backend",
+  "version": "1.0.0",
+  "description": "Dual-Tree Multi-Level Marketing & Affiliate Network Platform Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "seed": "node scripts/seedData.js --run"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "decimal.js": "^10.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1"
+  }
+}
+
