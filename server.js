@@ -1,4 +1,6 @@
 require('dotenv').config();
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,7 +15,8 @@ const { seedDatabase } = require('./scripts/seedData');
 const app = express();
 const PORT = process.env.PORT || 5005;
 const MONGO_URI =
-  process.env.MONGO_URI || 'mongodb://localhost:27017/mlm_dual_tree_platform';
+  process.env.MONGO_URI ||
+  'mongodb+srv://vaisdt81_db_user:MUfypBSEWunKu3X8@cluster0.eosutgp.mongodb.net/';
 
 app.use(cors());
 app.use(express.json());
@@ -32,8 +35,10 @@ app.use('/api', apiRoutes);
 
 async function startServer() {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log(`[MongoDB] Connected successfully to ${MONGO_URI}`);
+    await mongoose.connect(MONGO_URI, {
+      dbName: 'mlm_dual_tree_platform'
+    });
+    console.log('[MongoDB] Connected successfully to MongoDB Atlas (mlm_dual_tree_platform)');
 
     // Ensure indexes are built (including partial unique index on { placement_parent_id, position })
     await Promise.all([

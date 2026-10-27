@@ -331,10 +331,14 @@ async function seedDatabase(periodId = process.env.ACTIVE_PERIOD || '202610') {
 // Allow standalone CLI execution via `npm run seed`
 if (require.main === module && process.argv.includes('--run')) {
   require('dotenv').config();
+  const dns = require('dns');
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
   const mongoose = require('mongoose');
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/mlm_dual_tree_platform';
+  const uri =
+    process.env.MONGO_URI ||
+    'mongodb+srv://vaisdt81_db_user:MUfypBSEWunKu3X8@cluster0.eosutgp.mongodb.net/';
   mongoose
-    .connect(uri)
+    .connect(uri, { dbName: 'mlm_dual_tree_platform' })
     .then(async () => {
       console.log('Connected to MongoDB. Seeding 15-node network...');
       const res = await seedDatabase();
